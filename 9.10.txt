@@ -1,0 +1,57 @@
+Here’s a summary of both articles you uploaded:
+
+---
+
+### **1. TVM: An Automated End-to-End Optimizing Compiler for Deep Learning** (Chen et al., 2018)
+
+* **Problem:**
+  Deep learning workloads need to run efficiently on many types of hardware (CPUs, GPUs, FPGAs, ASICs, mobile chips). Existing frameworks rely on vendor-specific libraries (like cuDNN), which require huge manual effort to optimize and are not portable across devices.
+
+* **Solution – TVM:**
+  TVM is a **compiler stack for deep learning** that automatically generates optimized low-level code from high-level models (e.g., TensorFlow, PyTorch). It provides both **graph-level** and **operator-level** optimizations.
+
+* **Key Innovations:**
+
+  1. **Tensor expression language** – to describe operators abstractly while separating compute definition from schedule (execution strategy).
+  2. **ML-based cost model** – learns which optimization strategies (loop tiling, memory reuse, tensorization, etc.) are best for a given hardware target.
+  3. **Graph rewriter** – applies operator fusion, constant folding, memory planning, and data layout transformations.
+
+* **Results:**
+  TVM achieves **competitive or better performance** compared to hand-optimized vendor libraries, across CPUs, GPUs, mobile devices, and FPGAs. Speedups range **1.2×–3.8×**. It’s open source and adopted in production by major companies.
+
+* **Impact:**
+  TVM helped establish the paradigm of **hardware-agnostic DL model deployment** by making optimization automatic rather than manual.
+
+---
+
+### **2. DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines** (Khattab et al., 2023)
+
+* **Problem:**
+  Current large language model (LLM) pipelines are built with **hard-coded prompts** (strings crafted by trial-and-error). This is brittle, non-generalizable, and hard to scale when chaining multiple LMs.
+
+* **Solution – DSPy:**
+  DSPy is a **programming model and compiler** for LLM pipelines. It treats LMs as modular components and compiles them into **text transformation graphs** (imperative pipelines of declarative modules).
+
+* **Key Concepts:**
+
+  1. **Signatures** – natural-language typed declarations (e.g., “question → answer”) that abstract away raw prompts.
+  2. **Modules** – parameterized operators (e.g., `Predict`, `ChainOfThought`, `ReAct`) that encapsulate prompting strategies, finetuning, and reasoning.
+  3. **Teleprompters** – optimizers that automatically generate and refine demonstrations/prompts for modules, allowing pipelines to self-improve.
+
+* **Results:**
+
+  * DSPy pipelines, written in just a few lines, **outperform few-shot prompting and expert-crafted prompts**.
+  * On math word problems (GSM8K) and multi-hop QA (HotPotQA), DSPy boosts LLM accuracy dramatically (e.g., **GPT-3.5 improves from \~25% → 80%+**).
+  * Works well even with **smaller open LMs** (T5-large, Llama2-13b), matching or beating hand-engineered GPT-3.5 prompt chains.
+
+* **Impact:**
+  DSPy shifts from “prompt engineering” to **modular, declarative LLM programming**, enabling systematic design and automatic optimization of complex pipelines.
+
+---
+
+✅ **In short:**
+
+* **TVM (2018)** tackled the problem of *deep learning model portability and performance* across hardware with a compiler-based approach.
+* **DSPy (2023)** tackles the problem of *LLM pipeline brittleness and prompt engineering* with a compiler that turns declarative modules into optimized, self-improving pipelines.
+
+Would you like me to also create a **side-by-side comparison** of the two papers (problems, methods, impacts), almost like a review table? That could make the connection between them clearer.
