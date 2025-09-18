@@ -1,0 +1,66 @@
+1) MTP: A Meaning-Typed Language Abstraction for AI-Integrated Programming — quick vibe
+
+What it is: a programming-language abstraction (“Meaning-Typed Programming”, MTP) that hides prompt engineering details by letting code carry semantic meaning; the runtime/IR automatically generates prompts and handles LLM calls. 
+arXiv
+
+Key pieces:
+
+Language-level construct by to invoke LLMs directly from code, plus a meaning-typed IR (MT-IR) that extracts semantics and an MT-Runtime that manages interactions. 
+arXiv
+
+Implemented in Jac (a Python-superset) and released as part of Jaseci / module byLLM. 
+arXiv
+
+Claims: reduces developer effort (fewer LOC, faster task completion in user study), is cost/time efficient, and robust to degraded naming (shows resilience when code naming is noisy). 
+arXiv
+
+Why it matters (vibe): instead of treating LLMs like foreign APIs you must craft prompts for, MTP treats model interaction as a first-class, semantics-aware language feature — aiming to make AI-integration predictable and easier for everyday devs. 
+arXiv
+
+2) Relay: A High-Level Compiler for Deep Learning — quick vibe
+
+What it is: a high-level compiler framework and IR (Relay) designed to unify expressivity, composability, and portability for modern deep learning models across hardware backends. 
+arXiv
+
+Key pieces:
+
+Relay is a functional, statically-typed IR that generalizes prior DL IRs, enabling expressive model descriptions and domain-specific optimizations. 
+arXiv
+
+Extensible optimization mechanisms let Relay target CPUs, GPUs and emerging accelerators without losing performance. 
+arXiv
+
+Evaluation shows competitive performance across a broad model/device set — the takeaway is that a unified, expressive IR can avoid the usual tradeoffs between portability and speed. 
+arXiv
+
+Why it matters (vibe): Relay is the “glue IR” idea for DL — make models easy to transform/optimize for many devices without rewriting kernels for each target. 
+arXiv
+
+3) GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning — quick vibe
+
+What it is: a prompt-optimization system (GEPA / Genetic-Pareto) that uses natural-language reflection and evolutionary search over prompts/strategies, intended as an alternative to RL methods for adapting LLMs to tasks. 
+arXiv
+
+Key pieces:
+
+GEPA samples trajectories (LLM reasoning, tool calls, outputs), has the system “reflect” in natural language to diagnose failures, proposes prompt edits, tests them, and combines complementary solutions using Pareto-frontier ideas. 
+arXiv
+
+Results (claimed): across multiple tasks GEPA beats GRPO (a RL approach) by ~10% on average (up to 20%), and uses far fewer rollouts (up to 35× fewer). It also outperforms a leading prompt optimizer (MIPROv2) on several settings.
+Why it matters (vibe): instead of relying on reward signals and gradients, GEPA treats language itself as a rich self-explanatory search space — you get more bang per rollout by letting the model explain and revise its prompts. 
+arXiv
+
+4) Ansor: Generating High-Performance Tensor Programs for Deep Learning — quick vibe
+
+What it is: an automatic tensor-program generation framework that explores a huge space of operator implementations and finds high-performance kernels across hardware (Intel/ARM/NVIDIA). 
+arXiv
+
+Key pieces:
+
+Uses a hierarchical search representation to sample many optimization combinations, then fine-tunes candidates via evolutionary search + a learned cost model. 
+arXiv
+
+Includes a task scheduler to jointly optimize multiple subgraphs. Empirical gains: up to ~3.8× on Intel CPU, 2.6× on ARM, and 1.7× on NVIDIA GPUs vs. prior state-of-the-art. 
+arXiv
+
+Why it matters (vibe): Ansor made automatic kernel search practical and powerful — reducing the need for hand-tuned vendor kernels by discovering novel, high-performing program variants.
