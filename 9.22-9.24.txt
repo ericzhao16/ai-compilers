@@ -1,0 +1,67 @@
+I'll summarize each of the four papers for you:
+
+## Paper 1: TorchBench: Benchmarking PyTorch with High API Surface Coverage
+
+This paper introduces TorchBench, a comprehensive benchmark suite for evaluating PyTorch performance. The key contributions include:
+
+**Problem**: Existing ML benchmarks like MLPerf cover only a small number of models and limited PyTorch APIs, making it difficult to identify performance issues across the diverse PyTorch ecosystem.
+
+**Solution**: TorchBench includes 84 deep learning models across 6 domains (computer vision, NLP, recommendation, reinforcement learning, speech, and others), covering 2.3x more PyTorch APIs than MLPerf.
+
+**Key Findings**:
+- PyTorch keeps GPUs busy only 56.8% of the time during training and 55.4% during inference
+- The benchmark helped identify and fix multiple performance bugs in PyTorch
+- Enabled performance regression testing in PyTorch's continuous integration system
+- Different GPU architectures (NVIDIA vs AMD) show varying performance depending on precision formats used
+
+## Paper 2: PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation
+
+This paper presents the core technologies behind PyTorch 2's `torch.compile` feature: TorchDynamo and TorchInductor.
+
+**Problem**: Prior graph capture methods in PyTorch were either unsound (producing incorrect results), too restrictive (failing on many real models), or had high runtime overhead.
+
+**Solution**: 
+- **TorchDynamo**: A Python bytecode-to-bytecode translator that extracts PyTorch operations into graphs while preserving Python's flexibility
+- **TorchInductor**: A compiler backend that generates optimized Triton (GPU) and C++/OpenMP (CPU) code
+
+**Key Results**:
+- TorchDynamo works on 93% of TorchBench models vs 45% for TorchScript
+- TorchInductor achieves 2.27x inference and 1.41x training speedups on average across 180+ models
+- Adds minimal overhead (less than 5%) compared to alternatives like Lazy Tensors (38-90% overhead)
+
+## Paper 3: TorchTitan: One-stop PyTorch Native Solution for Production Ready LLM Pretraining
+
+This paper introduces TorchTitan, a distributed training system for large language models that unifies state-of-the-art techniques.
+
+**Problem**: Existing LLM training systems are complex, non-composable, inflexible, and scattered across multiple libraries, making it difficult to combine different parallelism strategies effectively.
+
+**Solution**: A unified framework built on PyTorch's Distributed Tensor (DTensor) that enables composable 4D parallelism:
+- Data Parallel (FSDP)
+- Tensor Parallel 
+- Pipeline Parallel
+- Context Parallel
+
+**Key Features**:
+- Seamless integration of optimization techniques (Float8, torch.compile, activation checkpointing)
+- Production-ready features (distributed checkpointing, debugging tools, failure recovery)
+- Elastic scaling from 8 to 512 GPUs
+
+**Results**: Performance improvements of 65.08% on Llama 3.1 8B, 12.59% on 70B, and 30% on 405B models over optimized baselines.
+
+## Paper 4: ECLIP: Energy-efficient and Practical Co-Location of ML Inference on Spatially Partitioned GPUs
+
+This paper addresses energy efficiency in GPU-based ML inference servers through improved spatial partitioning.
+
+**Problem**: ML inference kernels underutilize GPUs, wasting energy through idle components. While co-locating multiple models can improve utilization, existing spatial partitioning techniques have high reconfiguration overheads.
+
+**Solution**: ECLIP framework with three key components:
+1. **Pre-allocated CU masked streams**: Avoids costly runtime reconfiguration by creating pools of streams with predefined compute unit (CU) assignments
+2. **Runtime scheduler**: Intercepts and redirects kernels to appropriate streams while maintaining dependencies
+3. **Resource allocation optimizer**: Uses integer linear programming to assign optimal CU allocations to kernel groups while minimizing switching overhead
+
+**Results**: 
+- 13% average improvement in throughput (up to 21%)
+- 25% average improvement in energy efficiency (up to 35%)
+- Maintains acceptable tail latency while improving GPU utilization
+
+All four papers address different aspects of PyTorch and GPU computing efficiency, from benchmarking and compilation to large-scale training and energy-efficient inference.
